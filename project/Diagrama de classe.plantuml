@@ -1,0 +1,176 @@
+@startuml es2
+skinparam class {
+    BackgroundColor Snow
+    BorderColor Black
+}
+
+package Library {
+    package Persistence {
+        class User {
+            - name: string
+            - address: string
+            - phone: string
+            - username: string
+            - password: string
+            - role: Role
+            + getName(): string
+            + getAddress(): string
+            + getPhone(): string
+            + getUsername(): string
+            + getPassword(): string
+            + getRole(): Role
+            + setName(name: string): boolean
+            + setAddress(address: string): boolean
+            + setPhone(phone: string): boolean
+            + setUsername(phone: string): boolean
+            + setPassword(password: string): boolean
+            + setRole(role: Role): boolean
+        }
+
+        class Image {
+            - height: number
+            - width: number
+            - imageType: ImageType
+            - binaryContent: Blob
+            + getHeigth(): number
+            + getWidth(): number
+            + getImageType(): ImageType
+            + getBinaryContent(): Blob
+            + setHeight(height: number): boolean
+            + setWidth(width: number): boolean
+            + setImageType(imagetType: ImageType): boolean
+            + setBinaryContent(blob: Blob): boolean
+        }
+        class Book {
+            - title: string
+            - author: string
+            - year: int
+            - genres: Genre[]
+            + getTitle(): string
+            + getAuthor(): string
+            + getYear(): int
+            + getGenres(): Genre[]
+            + setTitle(title: string): boolean
+            + setAuthor(author: string): boolean
+            + setYear(year: string): boolean
+            + setGenres(genres: Genre[]): boolean
+            + addImage(img: Image): boolean
+        }
+
+        class Normal extends User {}
+
+        class Librarian extends User {}
+
+        class Loan {
+            - status: string
+            - borrowDate: date
+            - borrowReturnLimit: date
+            - returnDate: date
+            + getApproved(): boolean
+            + getStatus(): string
+            + getBorrowDate(): date
+            + getBorrowReturnLimit(): string
+            + getReturnDate(): date
+            + setApproved(approved: boolean): boolean
+            + setStatus(status: string): boolean
+            + setBorrowDate(borrowDate: date): boolean
+            + setBorrowReturnLimit(borrowReturnLimit: date): boolean
+            + setReturnDate(returnDate: date): boolean
+        }
+
+        enum Role {
+            NORMAL
+            LIBRARIAN
+        }
+
+        enum ImageType {
+            PNG
+            JPEG
+            JPG
+            SVG
+        }
+
+        enum Genre {
+            NOVEL
+            POETRY
+            DRAMA
+            ESSAY
+            SHORT_STORY
+            MYSTERY
+            SCIENCE_FICTION
+            FANTASY
+            ROMANCE
+            HORROR
+            HISTORICAL_FICTION
+            BIOGRAPHY
+            AUTOBIOGRAPHY
+            TRAVEL
+            SELF_HELP
+            PHILOSOPHY
+            THRILLER
+            COMEDY
+            SATIRE
+            CHILDREN
+            YOUNG_ADULT
+        }
+
+        Loan o-- Book
+        Loan o-- Normal
+        Loan o-- Librarian
+
+        Book *-- Image
+    }
+
+    package DAO {
+        interface ILoanDAO {
+            + index(): Loan
+            + list(): Loan[]
+            + create(loan: Loan): Object
+            + update(loan: Loan): Object
+            + delete(loan: Loan): Object
+        }
+
+        class LoanDAO implements ILoanDAO {}
+
+        interface IUserDAO {
+            + login(email: string, password: string): User
+            + index(): User
+            + list(): User[]
+            + create(user: User): Object
+            + update(user: User): Object
+            + delete(user: User): Object
+        }
+
+        class UserDAO implements IUserDAO {}
+        
+        interface IBookDAO {
+            + index(): Book
+            + list(): Book[]
+            + create(user: User): Object
+            + update(user: User): Object
+            + delete(user: User): Object
+        }
+        
+        class BookDAO implements IBookDAO {}
+
+        interface IImageDAO {
+            + index(): Image
+            + list(): Image[]
+            + create(image: Image): Object
+            + update(image: Image): Object
+            + delete(image: Image): Object
+        }
+        
+        class ImageDAO implements IImageDAO {}
+    }
+
+    package Service {
+        class Routes {
+            + get(subUrl: string, req: Object): res: Object
+            + post(subUrl: string, req: Object): res: Object
+            + put(subUrl: string, req: Object): res: Object
+            + delete(subUrl: string, req: Object): res: Object
+        }
+    }
+}
+@enduml

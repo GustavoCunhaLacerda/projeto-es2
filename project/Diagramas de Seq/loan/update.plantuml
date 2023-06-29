@@ -1,0 +1,19 @@
+@startuml es2
+skinparam class {
+    BackgroundColor Snow
+    BorderColor Black
+}
+
+Frontend -> "routes: Routes" : 1: put(/loan/:id, req)
+
+
+"routes: Routes" ->  "LoanDAO : ILoanDAO" : 1.1 loan = index(query.id): Loan
+"routes: Routes" <-- "LoanDAO : ILoanDAO" : loan
+
+"routes: Routes" -> "loan : Loan" : 1.4 setStatus(req.status): boolean
+
+"routes: Routes" -> "LoanDAO : ILoanDAO" : 1.11 res = update(loan): boolean
+
+"routes: Routes" --> Frontend : res
+
+@enduml

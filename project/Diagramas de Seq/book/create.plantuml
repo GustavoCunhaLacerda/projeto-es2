@@ -1,0 +1,27 @@
+@startuml es2
+skinparam class {
+    BackgroundColor Snow
+    BorderColor Black
+}
+
+Frontend -> "routes: Routes" : 1: post(/book, req)
+
+"routes: Routes" -> "img : Image" : 1.1 setWidth(req.image.width): boolean
+"routes: Routes" -> "img : Image" : 1.2 setHeight(req.image.height): boolean
+"routes: Routes" -> "img : Image" : 1.3 setImageType(req.image.width): boolean
+"routes: Routes" -> "img : Image" : 1.4 setBinaryContent(req.image.content): boolean
+
+"routes: Routes" -> "book : Book" : 1.5 addImage(img)
+
+"routes: Routes" -> "book : Book" : 1.6 setTitle(req.title): boolean
+"routes: Routes" -> "book : Book" : 1.7 setAuthor(req.author): boolean
+"routes: Routes" -> "book : Book" : 1.8 setYear(req.year): boolean
+"routes: Routes" -> "book : Book" : 1.9 setGenres(req.genres): boolean
+
+"routes: Routes" -> "BookDAO : IBookDAO" : 1.5 res = create(book): Object
+
+"BookDAO : IBookDAO" --> "routes: Routes" : res
+
+"routes: Routes" --> Frontend : res
+
+@enduml

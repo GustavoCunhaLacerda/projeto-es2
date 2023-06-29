@@ -1,0 +1,15 @@
+@startuml es2
+skinparam class {
+    BackgroundColor Snow
+    BorderColor Black
+}
+
+Frontend -> "routes: Routes" : 1: get(/book, req)
+
+"routes: Routes" -> "BookDAO : IBookDAO" : 1.1 res = list(req.query): Book[]
+
+"BookDAO : IBookDAO" --> "routes: Routes" : res
+
+"routes: Routes" --> Frontend : res
+
+@enduml
