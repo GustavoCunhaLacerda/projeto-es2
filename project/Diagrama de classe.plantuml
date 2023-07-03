@@ -121,6 +121,74 @@ package Library {
         Book *-- Image
     }
 
+    package Controller {
+        interface ILoanController {
+            + show(req.id: number): Object
+            + list(req.query: Object): Object[]
+            + store(req.body: Object): Object
+            + update(req.body: Object): Object
+            + destroy(req.id: number): Object
+        }
+
+        class LoanController implements ILoanController {
+            + show(req.id: number): Object
+            + list(req.query: Object): Object[]
+            + store(req.body: Object): Object
+            + update(req.body: Object): Object
+            + destroy(req.id: number): Object
+        }
+
+        interface IUserController {
+            + login(req.email: string, req.password: string): Object
+            + show(req.id: number): Object
+            + list(req.query: Object): Object[]
+            + store(req.body: Object): Object
+            + update(req.body: Object): Object
+            + destroy(req.id: number): Object
+        }
+
+        class UserController implements IUserController {
+            + login(email: string, password: string): User
+            + show(req.id: number): Object
+            + list(req.query: Object): Object[]
+            + store(req.body: Object): Object
+            + update(req.body: Object): Object
+            + destroy(req.id: number): Object
+        }
+        
+        interface IBookController {
+            + show(req.id: number): Object
+            + list(req.query: Object): Object[]
+            + store(req.body: Object): Object
+            + update(req.body: Object): Object
+            + destroy(req.id: number): Object
+        }
+        
+        class BookController implements IBookController {
+            + show(req.id: number): Object
+            + list(req.query: Object): Object[]
+            + store(req.body: Object): Object
+            + update(req.body: Object): Object
+            + destroy(req.id: number): Object
+        }
+
+        interface IImageController {
+            + show(req.id: number): Object
+            + list(req.query: Object): Object[]
+            + store(req.body: Object): Object
+            + update(req.body: Object): Object
+            + destroy(req.id: number): Object
+        }
+        
+        class ImageController implements IImageController {
+            + show(req.id: number): Object
+            + list(req.query: Object): Object[]
+            + store(req.body: Object): Object
+            + update(req.body: Object): Object
+            + destroy(req.id: number): Object
+        }
+    }
+
     package DAO {
         interface ILoanDAO {
             + index(): Loan
@@ -130,7 +198,13 @@ package Library {
             + delete(loan: Loan): Object
         }
 
-        class LoanDAO implements ILoanDAO {}
+        class LoanDAO implements ILoanDAO {
+            + index(): Loan
+            + list(): Loan[]
+            + create(loan: Loan): Object
+            + update(loan: Loan): Object
+            + delete(loan: Loan): Object
+        }
 
         interface IUserDAO {
             + login(email: string, password: string): User
@@ -141,7 +215,14 @@ package Library {
             + delete(user: User): Object
         }
 
-        class UserDAO implements IUserDAO {}
+        class UserDAO implements IUserDAO {
+            + login(email: string, password: string): User
+            + index(): User
+            + list(): User[]
+            + create(user: User): Object
+            + update(user: User): Object
+            + delete(user: User): Object
+        }
         
         interface IBookDAO {
             + index(): Book
@@ -151,7 +232,13 @@ package Library {
             + delete(user: User): Object
         }
         
-        class BookDAO implements IBookDAO {}
+        class BookDAO implements IBookDAO {
+             + index(): Book
+            + list(): Book[]
+            + create(user: User): Object
+            + update(user: User): Object
+            + delete(user: User): Object
+        }
 
         interface IImageDAO {
             + index(): Image
@@ -161,7 +248,13 @@ package Library {
             + delete(image: Image): Object
         }
         
-        class ImageDAO implements IImageDAO {}
+        class ImageDAO implements IImageDAO {
+             + index(): Image
+            + list(): Image[]
+            + create(image: Image): Object
+            + update(image: Image): Object
+            + delete(image: Image): Object
+        }
     }
 
     package Service {
