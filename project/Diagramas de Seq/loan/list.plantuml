@@ -5,10 +5,12 @@ skinparam class {
 }
 
 Frontend -> "routes: Routes" : 1: get(/loan, req)
+"routes: Routes" -> "LoanController(loanController): ILoanController" : 1.1 list(req.query): Object
 
-"routes: Routes" -> "LoanDAO : ILoanDAO" : 1.1 res = list(req.query): Loan[]
+"LoanController(loanController): ILoanController" -> "LoanDAO : ILoanDAO" : 1.1.1 user = list(req.query): Loan[]
+"LoanController(loanController): ILoanController" <-- "LoanDAO : ILoanDAO" : loanList
 
-"LoanDAO : ILoanDAO" --> "routes: Routes" : res
+"LoanController(loanController): ILoanController" --> "routes: Routes" : res
 
 "routes: Routes" --> Frontend : res
 

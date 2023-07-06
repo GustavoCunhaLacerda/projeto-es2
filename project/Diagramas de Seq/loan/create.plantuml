@@ -6,26 +6,28 @@ skinparam class {
 
 Frontend -> "routes: Routes" : 1: post(/loan, req)
 
-"routes: Routes" -> "UserDAO : IUserDAO" : 1.1 user = index(req.librarian_id): User
-"routes: Routes" <-- "UserDAO : IUserDAO" : user
 
-"routes: Routes" -> "UserDAO : IUserDAO" : 1.2 librarian = index(req.user_id): User
-"routes: Routes" <-- "UserDAO : IUserDAO" : librarian
+"routes: Routes" -> "LoanController(loanController): ILoanController" : 1.1 store(req.body): Object
 
-"routes: Routes" -> "BookDAO : IBookDAO" : 1.3 book = index(req.book_id): Book
-"routes: Routes" <-- "BookDAO : IBookDAO" : book
+"LoanController(loanController): ILoanController" -> "UserDAO : IUserDAO" : 1.1.2 user = index(req.user_id): User
+"LoanController(loanController): ILoanController" <-- "UserDAO : IUserDAO" : user
 
-
-"routes: Routes" -> "loan : Loan" : 1.4 setUser(user): boolean
-"routes: Routes" -> "loan : Loan" : 1.5 setLibrarian(librarian): boolean
-"routes: Routes" -> "loan : Loan" : 1.6 setBook(book): boolean
-"routes: Routes" -> "loan : Loan" : 1.7 setStatus(req.status): boolean
-"routes: Routes" -> "loan : Loan" : 1.8 setBorrowDate(req.borrowDate): boolean
-"routes: Routes" -> "loan : Loan" : 1.9 setBorrowReturnLimit(req.borrowReturnLimit): boolean
-"routes: Routes" -> "loan : Loan" : 1.10 setReturnDate(req.returnDate): boolean
+"LoanController(loanController): ILoanController" -> "BookDAO : IBookDAO" : 1.1.3 book = index(req.book_id): Book
+"LoanController(loanController): ILoanController" <-- "BookDAO : IBookDAO" : book
 
 
-"routes: Routes" -> "LoanDAO : ILoanDAO" : 1.11 res = save(user): boolean
+"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.4 setUser(user): boolean
+"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.5 setBook(book): boolean
+"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.6 setStatus(req.status): boolean
+"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.7 setBorrowDate(req.borrowDate): boolean
+"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.8 setBorrowReturnLimit(req.borrowReturnLimit): boolean
+"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.9 setReturnDate(req.returnDate): boolean
+
+
+"LoanController(loanController): ILoanController" -> "LoanDAO : ILoanDAO" : 1.1.10 res = save(loan): boolean
+"LoanController(loanController): ILoanController" <-- "LoanDAO : ILoanDAO" : res
+
+"routes: Routes" <-- "LoanController(loanController): ILoanController" : res
 
 
 "routes: Routes" --> Frontend : res
