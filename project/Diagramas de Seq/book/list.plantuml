@@ -4,11 +4,13 @@ skinparam class {
     BorderColor Black
 }
 
-Frontend -> "routes: Routes" : 1: get(/book, req)
+Frontend -> "routes: Routes" : 1: get(/book)
 
-"routes: Routes" -> "BookDAO : IBookDAO" : 1.1 res = list(req.query): Book[]
+"routes: Routes" -> "BookController(bookController): IBookController" : 1.1 list(): Object
+"BookController(bookController): IBookController" -> "bookDAO : IBookDAO" : 1.1.1 res = list(): Book[]
+"BookController(bookController): IBookController" <-- "bookDAO : IBookDAO" : res
 
-"BookDAO : IBookDAO" --> "routes: Routes" : res
+"routes: Routes" <-- "BookController(bookController): IBookController" : res
 
 "routes: Routes" --> Frontend : res
 

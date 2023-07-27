@@ -3,24 +3,34 @@ skinparam class {
     BackgroundColor Snow
     BorderColor Black
 }
+Frontend -> "routes: Routes" : 1: post(/image, req)
+"routes: Routes" -> "ImageController(imageController): IImageController" : 1.1 image = create(req)
 
-Frontend -> "routes: Routes" : 1: post(/book, req)
+"ImageController(imageController): IImageController" -> "img : Image" : 1.1.1 setWidth(req.body.name): boolean
+"ImageController(imageController): IImageController" -> "img : Image" : 1.1.2 setHeight(req.body.imageType): boolean
+"ImageController(imageController): IImageController" -> "img : Image" : 1.1.3 setBinaryContent(req.file): boolean
 
-"routes: Routes" -> "img : Image" : 1.1 setWidth(req.image.width): boolean
-"routes: Routes" -> "img : Image" : 1.2 setHeight(req.image.height): boolean
-"routes: Routes" -> "img : Image" : 1.3 setImageType(req.image.width): boolean
-"routes: Routes" -> "img : Image" : 1.4 setBinaryContent(req.image.content): boolean
+"ImageController(imageController): IImageController" -> "ImageDAO : IImageDAO" : 1.1.4 res = create(image): Object
 
-"routes: Routes" -> "book : Book" : 1.5 addImage(img)
+"ImageDAO : IImageDAO" --> "ImageController(imageController): IImageController" : resImg
+"routes: Routes" <-- "ImageController(imageController): IImageController" : resImg
 
-"routes: Routes" -> "book : Book" : 1.6 setTitle(req.title): boolean
-"routes: Routes" -> "book : Book" : 1.7 setAuthor(req.author): boolean
-"routes: Routes" -> "book : Book" : 1.8 setYear(req.year): boolean
-"routes: Routes" -> "book : Book" : 1.9 setGenres(req.genres): boolean
+Frontend -> "routes: Routes" : 2: post(/book, req)
 
-"routes: Routes" -> "BookDAO : IBookDAO" : 1.5 res = create(book): Object
+"routes: Routes" -> "BookController(bookController): IBookController" : 2.1 book = create(req)
 
-"BookDAO : IBookDAO" --> "routes: Routes" : res
+
+"BookController(bookController): IBookController" -> "book : Book" : 2.1.1 setImage(resImg.id)
+"BookController(bookController): IBookController" -> "book : Book" : 2.1.2 setTitle(req.title): boolean
+"BookController(bookController): IBookController" -> "book : Book" : 2.1.3 setAuthor(req.author): boolean
+"BookController(bookController): IBookController" -> "book : Book" : 2.1.4 setYear(req.year): boolean
+"BookController(bookController): IBookController" -> "book : Book" : 2.1.5 setGenres(req.genres): boolean
+
+"BookController(bookController): IBookController" -> "BookDAO : IBookDAO" : 2.1.6 res = create(book): Object
+
+"BookDAO : IBookDAO" --> "BookController(bookController): IBookController" : res
+"routes: Routes" <-- "BookController(bookController): IBookController" : res
+
 
 "routes: Routes" --> Frontend : res
 

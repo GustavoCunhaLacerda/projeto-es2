@@ -7,12 +7,20 @@ skinparam class {
 Frontend -> "routes: Routes" : 1: put(/loan/:id, req)
 
 
-"routes: Routes" ->  "LoanDAO : ILoanDAO" : 1.1 loan = index(query.id): Loan
-"routes: Routes" <-- "LoanDAO : ILoanDAO" : loan
+"routes: Routes" ->  "LoanController(loanController): ILoanController" : 1.1 loan = index(query.id)
+"LoanController(loanController): ILoanController" ->  "LoanDAO : ILoanDAO" : 1.1.1 loan = index(query.id): Loan
+"LoanController(loanController): ILoanController" <-- "LoanDAO : ILoanDAO" : loan
+"LoanController(loanController): ILoanController" ->  "UserDAO : IUserDAO" : 1.1.2 librarian = index(query.id): Loan
+"LoanController(loanController): ILoanController" <-- "UserDAO : IUserDAO" : librarian
 
-"routes: Routes" -> "loan : Loan" : 1.4 setStatus(req.status): boolean
+"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.4 setStatus(req.status): boolean
+"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.5 setLibrarian(librarian): boolean
 
-"routes: Routes" -> "LoanDAO : ILoanDAO" : 1.11 res = update(loan): boolean
+"LoanController(loanController): ILoanController" -> "LoanDAO : ILoanDAO" : 1.1.6 res = save(loan): boolean
+"LoanController(loanController): ILoanController" <-- "LoanDAO : ILoanDAO" : res
+
+"routes: Routes" <-- "LoanController(loanController): ILoanController" : res
+
 
 "routes: Routes" --> Frontend : res
 

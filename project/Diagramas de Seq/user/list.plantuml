@@ -1,0 +1,17 @@
+@startuml es2
+skinparam class {
+    BackgroundColor Snow
+    BorderColor Black
+}
+
+Frontend -> "routes: Routes" : 1: get(/user)
+
+"routes: Routes" -> "UserController(userController): IUserController" : 1.1 list(): Object
+"UserController(userController): IUserController" -> "userDAO : IUserDAO" : 1.1.1 res = list(): User[]
+"UserController(userController): IUserController" <-- "userDAO : IUserDAO" : res
+
+"routes: Routes" <-- "UserController(userController): IUserController" : res
+
+"routes: Routes" --> Frontend : res
+
+@enduml

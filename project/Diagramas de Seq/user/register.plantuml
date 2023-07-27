@@ -4,18 +4,21 @@ skinparam class {
     BorderColor Black
 }
 
-Frontend -> "routes: Routes" : 1: post(/register, req)
+Frontend -> "routes: Routes" : 1: post(/user, req)
 
-"routes: Routes" -> "user : User" : 1.1 setName(req.name): boolean
-"routes: Routes" -> "user : User" : 1.2 setEmail(req.email): boolean
-"routes: Routes" -> "user : User" : 1.3 setPassword(req.password): boolean
-"routes: Routes" -> "user : User" : 1.4 setPhone(req.phone): boolean
-"routes: Routes" -> "user : User" : 1.5 setAddress(req.addres): boolean
-"routes: Routes" -> "user : User" : 1.6 setRole(NORMAL_USER): boolean
+"routes: Routes" -> "UserController(userController): IUserController" : 1.1.1 store(req.body): Object
+"UserController(userController): IUserController" -> "user : User" : 1.1.1 setName(req.body.name): boolean
+"UserController(userController): IUserController" -> "user : User" : 1.1.2 setEmail(req.body.email): boolean
+"UserController(userController): IUserController" -> "user : User" : 1.1.3 setPassword(req.body.password): boolean
+"UserController(userController): IUserController" -> "user : User" : 1.1.4 setPhone(req.body.phone): boolean
+"UserController(userController): IUserController" -> "user : User" : 1.1.5 setAddress(req.body.addres): boolean
+"UserController(userController): IUserController" -> "user : User" : 1.1.6 setRole(req.body.role): boolean
 
-"routes: Routes" -> "UserDao : IDao" : 1.5 res = create(user): boolean
+"UserController(userController): IUserController" -> "userDAO : IUserDAO" : 1.1.7 res = create(user): User
+"UserController(userController): IUserController" <-- "userDAO : IUserDAO" : res
 
-"UserDao : IDao" --> "routes: Routes" : res
+"routes: Routes" <-- "UserController(userController): IUserController" : res
+
 
 "routes: Routes" --> Frontend : res
 

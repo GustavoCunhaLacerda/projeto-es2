@@ -4,11 +4,14 @@ skinparam class {
     BorderColor Black
 }
 
-Frontend -> "routes: Routes" : 1: post(/login, req)
+Frontend -> "routes: Routes" : 1: post(/user/login, req)
 
-"routes: Routes" -> "UserDao : IUserDao" : 1.1 res = login(req.email, req.password): User
+"routes: Routes" -> "UserController(userController): IUserController" : 1.1 login(req.body): Object
+"UserController(userController): IUserController" -> "userDAO : IUserDAO" : 1.1.1 res = login(req.body.email, req.body.password): User
+"UserController(userController): IUserController" <-- "userDAO : IUserDAO" : res
 
-"UserDao : IUserDao" --> "routes: Routes" : res
+"routes: Routes" <-- "UserController(userController): IUserController" : res
+
 
 "routes: Routes" --> Frontend : res
 

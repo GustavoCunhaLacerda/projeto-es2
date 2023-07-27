@@ -20,11 +20,9 @@ Frontend -> "routes: Routes" : 1: post(/loan, req)
 "LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.5 setBook(book): boolean
 "LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.6 setStatus(req.status): boolean
 "LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.7 setBorrowDate(req.borrowDate): boolean
-"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.8 setBorrowReturnLimit(req.borrowReturnLimit): boolean
-"LoanController(loanController): ILoanController" -> "loan : Loan" : 1.1.9 setReturnDate(req.returnDate): boolean
 
 
-"LoanController(loanController): ILoanController" -> "LoanDAO : ILoanDAO" : 1.1.10 res = save(loan): boolean
+"LoanController(loanController): ILoanController" -> "LoanDAO : ILoanDAO" : 1.1.8 res = save(loan): boolean
 "LoanController(loanController): ILoanController" <-- "LoanDAO : ILoanDAO" : res
 
 "routes: Routes" <-- "LoanController(loanController): ILoanController" : res

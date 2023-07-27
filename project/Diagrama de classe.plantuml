@@ -10,37 +10,35 @@ package Library {
             - name: string
             - address: string
             - phone: string
-            - username: string
+            - email: string
             - password: string
             - role: Role
             + getName(): string
             + getAddress(): string
             + getPhone(): string
-            + getUsername(): string
+            + getEmail(): string
             + getPassword(): string
             + getRole(): Role
             + setName(name: string): boolean
             + setAddress(address: string): boolean
             + setPhone(phone: string): boolean
-            + setUsername(phone: string): boolean
+            + setEmail(email: string): boolean
             + setPassword(password: string): boolean
             + setRole(role: Role): boolean
         }
 
         class Image {
-            - height: number
-            - width: number
-            - imageType: ImageType
-            - binaryContent: Blob
-            + getHeigth(): number
-            + getWidth(): number
-            + getImageType(): ImageType
+            - name: string
+            - imageType: string
+            - binaryContent: Buffer
+            + getName(): string
+            + getImageType(): string
             + getBinaryContent(): Blob
-            + setHeight(height: number): boolean
-            + setWidth(width: number): boolean
+            + setName(name: string): boolean
             + setImageType(imagetType: ImageType): boolean
             + setBinaryContent(blob: Blob): boolean
         }
+
         class Book {
             - title: string
             - author: string
@@ -83,13 +81,6 @@ package Library {
             LIBRARIAN
         }
 
-        enum ImageType {
-            PNG
-            JPEG
-            JPG
-            SVG
-        }
-
         enum Genre {
             NOVEL
             POETRY
@@ -127,7 +118,7 @@ package Library {
             + list(req.query: Object): Object[]
             + store(req.body: Object): Object
             + update(req.body: Object): Object
-            + destroy(req.id: number): Object
+            + remove(req.id: number): Object
         }
 
         class LoanController implements ILoanController {
@@ -135,7 +126,7 @@ package Library {
             + list(req.query: Object): Object[]
             + store(req.body: Object): Object
             + update(req.body: Object): Object
-            + destroy(req.id: number): Object
+            + remove(req.id: number): Object
         }
 
         interface IUserController {
@@ -144,7 +135,7 @@ package Library {
             + list(req.query: Object): Object[]
             + store(req.body: Object): Object
             + update(req.body: Object): Object
-            + destroy(req.id: number): Object
+            + remove(req.id: number): Object
         }
 
         class UserController implements IUserController {
@@ -153,7 +144,7 @@ package Library {
             + list(req.query: Object): Object[]
             + store(req.body: Object): Object
             + update(req.body: Object): Object
-            + destroy(req.id: number): Object
+            + remove(req.id: number): Object
         }
         
         interface IBookController {
@@ -161,7 +152,7 @@ package Library {
             + list(req.query: Object): Object[]
             + store(req.body: Object): Object
             + update(req.body: Object): Object
-            + destroy(req.id: number): Object
+            + remove(req.id: number): Object
         }
         
         class BookController implements IBookController {
@@ -169,7 +160,7 @@ package Library {
             + list(req.query: Object): Object[]
             + store(req.body: Object): Object
             + update(req.body: Object): Object
-            + destroy(req.id: number): Object
+            + remove(req.id: number): Object
         }
 
         interface IImageController {
@@ -177,7 +168,7 @@ package Library {
             + list(req.query: Object): Object[]
             + store(req.body: Object): Object
             + update(req.body: Object): Object
-            + destroy(req.id: number): Object
+            + remove(req.id: number): Object
         }
         
         class ImageController implements IImageController {
@@ -185,7 +176,7 @@ package Library {
             + list(req.query: Object): Object[]
             + store(req.body: Object): Object
             + update(req.body: Object): Object
-            + destroy(req.id: number): Object
+            + remove(req.id: number): Object
         }
     }
 
@@ -195,7 +186,7 @@ package Library {
             + list(): Loan[]
             + create(loan: Loan): Object
             + update(loan: Loan): Object
-            + delete(loan: Loan): Object
+            + remove(loan: Loan): Object
         }
 
         class LoanDAO implements ILoanDAO {
@@ -203,7 +194,7 @@ package Library {
             + list(): Loan[]
             + create(loan: Loan): Object
             + update(loan: Loan): Object
-            + delete(loan: Loan): Object
+            + remove(loan: Loan): Object
         }
 
         interface IUserDAO {
@@ -212,7 +203,7 @@ package Library {
             + list(): User[]
             + create(user: User): Object
             + update(user: User): Object
-            + delete(user: User): Object
+            + remove(user: User): Object
         }
 
         class UserDAO implements IUserDAO {
@@ -221,7 +212,7 @@ package Library {
             + list(): User[]
             + create(user: User): Object
             + update(user: User): Object
-            + delete(user: User): Object
+            + remove(user: User): Object
         }
         
         interface IBookDAO {
@@ -229,7 +220,7 @@ package Library {
             + list(): Book[]
             + create(user: User): Object
             + update(user: User): Object
-            + delete(user: User): Object
+            + remove(user: User): Object
         }
         
         class BookDAO implements IBookDAO {
@@ -237,7 +228,7 @@ package Library {
             + list(): Book[]
             + create(user: User): Object
             + update(user: User): Object
-            + delete(user: User): Object
+            + remove(user: User): Object
         }
 
         interface IImageDAO {
@@ -245,7 +236,7 @@ package Library {
             + list(): Image[]
             + create(image: Image): Object
             + update(image: Image): Object
-            + delete(image: Image): Object
+            + remove(image: Image): Object
         }
         
         class ImageDAO implements IImageDAO {
@@ -253,7 +244,7 @@ package Library {
             + list(): Image[]
             + create(image: Image): Object
             + update(image: Image): Object
-            + delete(image: Image): Object
+            + remove(image: Image): Object
         }
     }
 
@@ -262,7 +253,7 @@ package Library {
             + get(subUrl: string, req: Object): res: Object
             + post(subUrl: string, req: Object): res: Object
             + put(subUrl: string, req: Object): res: Object
-            + delete(subUrl: string, req: Object): res: Object
+            + remove(subUrl: string, req: Object): res: Object
         }
     }
 }
